@@ -22,8 +22,7 @@ def FindLine(points=[]):
 
     d = n * omega - chi * chi
     if d == 0.0:
-      print("Highly unlikely!")
-      return (1, 1)
+      raise Exception("Bad data!")
     m = (chi + phi * n - nu * chi) / d
     b = (phi - m * omega) / chi
     return (m, b)

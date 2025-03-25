@@ -62,11 +62,11 @@ f(m, b) = \sum_{i=1}^n \left( m^2 x_i^2 + 2 m b x_i  - 2 m x_i y_i - 2 b y_i + b
 \end{equation}
 Expanding the sums, carefully:
 \begin{equation}
-f(m, b) = \sum_{i=1}^n m^2 x_i^2 + \sum_{i=0}^n 2 m b x_i  - \sum_{i=0}^n 2 m x_i y_i - \sum_{i=0}^n 2 b y_i + \sum_{i=0}^n b^2 + \sum_{i=0}^n y_i^2 
+f(m, b) = \sum_{i=1}^n m^2 x_i^2 + \sum_{i=1}^n 2 m b x_i  - \sum_{i=1}^n 2 m x_i y_i - \sum_{i=1}^n 2 b y_i + \sum_{i=1}^n b^2 + \sum_{i=1}^n y_i^2 
 \end{equation}
 Then factoring and simplifying:
 \begin{equation}
-f(m, b) = m^2 \sum_{i=1}^n x_i^2 + 2 m b \sum_{i=0}^n  x_i  - 2 m \sum_{i=0}^n x_i y_i - 2 b \sum_{i=0}^n y_i + n b^2 + \sum_{i=0}^n y_i^2 
+f(m, b) = m^2 \sum_{i=1}^n x_i^2 + 2 m b \sum_{i=1}^n  x_i  - 2 m \sum_{i=1}^n x_i y_i - 2 b \sum_{i=1}^n y_i + n b^2 + \sum_{i=1}^n y_i^2 
 \end{equation}
 
 \section{Summed Constants}
@@ -91,7 +91,7 @@ And finally
 
 The equation above becomes more simple:
 \begin{equation}
-f(m, b) = m^2 \Omega + 2 m b \chi - 2 m \phi - 2 b \nu + n b^2 + \sum_{i=0}^n y_i^2 
+f(m, b) = m^2 \Omega + 2 m b \chi - 2 m \phi - 2 b \nu + n b^2 + \sum_{i=1}^n y_i^2 
 \end{equation}
 
 The final sum does not involve our parameters $m$ or $b$ so we don't simplify it, we will ignore it.
@@ -150,7 +150,7 @@ Finally:
 Notice the two pitfalls:  $\chi = 0$ and $n \Omega - \chi^2 = 0$!   What
 do these mean?   $\chi = 0$ implies:
 \begin{equation}
-\sum_{i=0}^n x_i = 0
+\sum_{i=1}^n x_i = 0
 \end{equation}
 This is not difficult.  Consider the points: $(-1, 1), (0, 2), (1, 3)$.
 Starting at $(-1, 1)$, the line has slope 1 and $y$ intercept of 2.
@@ -201,33 +201,30 @@ m = \frac{\phi}{\Omega}
 
 Now to deal with pitfall two: $n \Omega - \chi^2 = 0$, or:
 \begin{equation}
-n  \left( \sum_{i=1}^n x_i^2 \right) - \left( \sum_{i=0}^n x_i \right)^2 = 0
+n  \left( \sum_{i=1}^n x_i^2 \right) - \left( \sum_{i=1}^n x_i \right)^2 = 0
 \end{equation}
 
 For example, a single point will create that problem, and a single point
-has no solution. Let's see what we can do.
+has no solution, nor does a set where all the $x$ values are identical. Here is what we want to avoid:
 \begin{equation}
-n  \left( \sum_{i=1}^n x_i^2 \right) = \left( \sum_{i=0}^n x_i \right)^2
+n  \left( \sum_{i=1}^n x_i^2 \right) = \left( \sum_{i=1}^n x_i \right)^2
 \end{equation}
 
-\begin{equation}
-\sqrt{n} \sqrt{ \sum_{i=1}^n x_i^2}  = \sum_{i=0}^n x_i 
-\end{equation}
+If $\mid{\bf \vec{x} }\mid > 0$ then we cannot have the two sums equal due to
+the  Cauchy–Schwarz Inequality:
 
-Note the square root of squares is actually vector length, if we treat
-each ${\bf x_i}$ as a vector ${\vec{x}}$.
 \begin{equation}
-\sqrt{n}  \left| \vec{x} \right| =  \sum_{i=0}^n x_i
-\end{equation}
+\mid\left<{\bf u},{\bf v}\right>\mid^2 \
+\le \left<{\bf u},{\bf u}\right>\cdot\left<{\bf v},{\bf v}\right>
+\end{equation} 
+where ${\bf u}$ is $\vec{x}$ and ${\bf v}$ is $[1, 1, 1, ..., 1]$, and
+$< , >$ is the inner (dot) product, while the actual dot($\cdot$) is a
+scalar multiply.   Hence we see that $<{\bf v}, {\bf v}> = n$, and the others
+match the above equation as well.
 
-And then we end up with a normalized vector:
-\begin{equation}
-\sqrt{n} = \frac{\sum_{i=0}^n x_i}{\left| \vec{x} \right| }
-\end{equation}
+So if we get an equality, we simply report an error.
 
-I'm not sure what to do with this, but my efforts to find an example
-where this is true have failed.  The python code prints an error
-should this occur.
+\vfill
 
 \section{Code}
 A function to obtain ${\bf m}$ and ${\bf b}$ is given below, as you can see,
@@ -256,8 +253,7 @@ def FindLine(points=[]):
 
     d = n * omega - chi * chi
     if d == 0.0:
-      print("Highly unlikely!")
-      return (1, 1)
+      raise Exception("Bad data!")
     m = (chi + phi * n - nu * chi) / d
     b = (phi - m * omega) / chi
     return (m, b)
