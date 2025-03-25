@@ -254,7 +254,7 @@ def FindLine(points=[]):
     d = n * omega - chi * chi
     if d == 0.0:
       raise Exception("Bad data!")
-    m = (chi + phi * n - nu * chi) / d
+    m = (phi * n - nu * chi) / d
     b = (phi - m * omega) / chi
     return (m, b)
 \end{lstlisting}
