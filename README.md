@@ -2,6 +2,8 @@
 
 Find the best fitting line to pairs of input data`(x,y)`.
 
+![build status](https://github.com/zettix/LeastSquares/actions/workflows/python-app.yml/badge.svg)
+
 ## Example
 ![example_plot](https://github.com/zettix/LeastSquares/blob/main/plot.png)
 
