@@ -15,14 +15,12 @@ def FindLine(points=[]):
       nu += y
       phi += x * y
 
-    print(f"chi: {chi}")
     if chi == 0.0:  # special case.
       m = phi / omega
       b = nu / n
       return (m, b)
 
     d = n * omega - chi * chi
-    print(f"d: {d}")
     if d == 0.0:
       raise Exception("Bad data!")
     m = (phi * n - nu * chi) / d
