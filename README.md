@@ -4,8 +4,11 @@ Find the best fitting line to pairs of input data`(x,y)`.
 
 ![build status](https://github.com/zettix/LeastSquares/actions/workflows/python-app.yml/badge.svg)
 
-## Example
+## Python Render Example
 ![example_plot](https://github.com/zettix/LeastSquares/blob/main/plot.png)
+
+## HTML Example
+![example_plot](https://github.com/zettix/LeastSquares/blob/main/canvas-plot.gif)
 
 See the [pdf](https://github.com/zettix/LeastSquares/blob/main/tex/line-fit.pdf) for the very short python code required to implement
 this algorithm, or look at `LeastSquaresLine.py`.   The file
