@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Least Squares Line Fitting</h1>
+<canvas id="myCanvas" width="400" height="400" style="border:1px solid grey"></canvas>
+
+<script>
+"use strict";
+/*
+Based on:
+https://www.w3schools.com/js/tryit.asp?filename=tryai_canvas_combined
+*/
+
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "#FF0000";
+canvas.height = canvas.width;
+ctx.transform(1, 0, 0, -1, 0, canvas.height)
+
+let xMax = canvas.height;
+let yMax = canvas.width;
+var slope;
+var intercept;
+
+var chi = 0;
+var omega = 0;
+var nu = 0;
+var phi = 0;
+
+const xArray = [50,60,70,80,90,100,110,120,130,140,150];
+const yArray = [7,8,8,9,9,9,10,11,14,14,15];
+
+// Plot Scatter
+ctx.fillStyle = "red";
+for (let i = 0; i < xArray.length-1; i++) {
+  let x = xArray[i]*xMax/150;
+  let y = yArray[i]*yMax/15;
+  ctx.beginPath();
+  ctx.ellipse(x, y, 3, 3, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Line fit parts:
+  chi += x;
+  omega += x * x;
+  nu += y;
+  phi += x * y;
+}
+
+// Plot Line
+let n = xArray.length;
+if (chi == 0) {
+   slope = phi / omega;
+   intercept = nu / n;
+} else {
+  let d = n * omega - chi * chi;
+  if (d == 0) {
+   alert("Error in data!");
+   slope = 1;
+   intercept = 1;
+  } else {
+   slope = (phi * n - nu * chi) / d;
+   intercept = (phi - slope * omega) / chi;
+  }
+}
+
+ctx.beginPath();
+ctx.moveTo(0, intercept);
+ctx.lineTo(xMax, f(xMax));
+ctx.strokeStyle = "black";
+ctx.stroke();
+
+// Line Function<br>
+function f(x) {
+  return x * slope + intercept;
+}
+</script>
+
+</body>
+</html>
