@@ -23,3 +23,18 @@ To create the pdf:
 ```
 pdflatex line-fit.tex
 ```
+
+# File listing
+
+1. arial.ttf Used for python image text.  A TrueType font
+2. canvas-plot.gif Example image from html/javascript solver
+3. canvas-plot.html html/javascript solver
+4. gendata.py produces test1.txt, python solver input
+5. least-plot.py uses python solver to emit plot.png
+6. LeastSquaresLine.py solver in python
+7. LICENSE MIT License
+8. plot.png python based plot
+9. README.md this file
+10. test1.txt input to the python plotter
+11. testLeastSquaresLine.py unit tests
+12. tex PDF paper directory
