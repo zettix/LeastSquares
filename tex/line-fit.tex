@@ -2,7 +2,7 @@
 \usepackage{amssymb,amsmath,blindtext,listings,graphicx}
 \title{Linear Least Squares Line Fitting Calculus}
 \date{2025 March}
-\author{Sean Brennan \\ www.zettix.com \\ github.com/zettix}
+\author{Sean Brennan \\ www.zettix.com \\ github.com/zettix/LeastSquares}
 \begin{document}
 \maketitle
 
@@ -11,18 +11,18 @@
 This is a description of fitting a line to a collection of
 two dimensional points $(x,y)$ by minimizing the error defined
 as the square of the differences between the line $y = mx + b$ and each $y_i$ for every $x_i$ in the point set, when added together.  Below is an example of
-a solution of the best fitting line given the illustrated points.
+a solution of the best fitting line given the set of points below.
 
 \includegraphics[width=110mm]{whiteplot.png}
 
-To find the line, we define our error function. Described below,
+To find the line, we first define our error function. Described below,
 it is sometimes called the sum of residuals. The important idea is that
 it is a function, and thus has parameters and a derivative.
 
 To find the minimum, we take the derivative, or gradient, and set it to zero.
-This is possible because the function $z = (x - y)^2$ is convex and increases
-as $x$ and $y$ differ, the minimum value has gradient zero.  This is like
-our error function which is a sum of squares.
+This is possible because the error function is similar to the function
+$z = (x - y)^2$, which is convex and increases as $x$ and $y$ differ,
+thus the minimum value has gradient zero.
 
 \section{The error function}
 
@@ -38,7 +38,7 @@ f(m, b) = \sum_{i=1}^{n}\left(m x_i + b - y_i\right)^2
 \end{equation}
 
 
-\section{Finding the minimum: Simplfy}
+\section{Finding the minimum: Simplify}
 
 The current definition of $f(m, b)$ would require the chain rule for a
 derivative, in a sum, things we can avoid by trying to isolate our terms
@@ -66,13 +66,14 @@ f(m, b) = \sum_{i=1}^n m^2 x_i^2 + \sum_{i=1}^n 2 m b x_i  - \sum_{i=1}^n 2 m x_
 \end{equation}
 Then factoring and simplifying:
 \begin{equation}
+\label{biggun}
 f(m, b) = m^2 \sum_{i=1}^n x_i^2 + 2 m b \sum_{i=1}^n  x_i  - 2 m \sum_{i=1}^n x_i y_i - 2 b \sum_{i=1}^n y_i + n b^2 + \sum_{i=1}^n y_i^2 
 \end{equation}
 
 \section{Summed Constants}
 
-We know the sums of $x_i$ and $x_i^2$ are constant, that is, we cannot change them, we using them to define our gradient.
-So let's rename them to simplify our calculations.
+We know the sums using $x_i$ and $y_i$ are constant, that is, we cannot change them, we are simply using them to define our gradient.
+So let's rename them for our calculations, to make them much easier to work with.
 \begin{equation}
 \chi = \sum_{i=1}^n x_i
 \end{equation}
@@ -89,15 +90,16 @@ And finally
 \phi = \sum_{i=1}^n x_i y_i
 \end{equation}
 
-The equation above becomes more simple:
+Equation \eqref{biggun} becomes much shorter:
 \begin{equation}
+\label{shorty}
 f(m, b) = m^2 \Omega + 2 m b \chi - 2 m \phi - 2 b \nu + n b^2 + \sum_{i=1}^n y_i^2 
 \end{equation}
 
-The final sum does not involve our parameters $m$ or $b$ so we don't simplify it, we will ignore it.
+The final sum $\Sigma y_i^2$ does not involve our parameters $m$ or $b$ so we don't simplify it, we will ignore it.
 
 \section{Finding the minimum: derivatives of  $f(m, b)$}
-Now let's get the gradient by taking partial derivatives using our two knobs: $m$ and $b$:
+Now let's get the gradient by taking partial derivatives of \eqref{shorty} using our two knobs: $m$ and $b$:
 Let us first solve for $m$.
 \begin{equation}
 \frac{\partial f(m,b)}{\partial m} = 2 m \Omega + 2 b \chi  - 2 \phi
