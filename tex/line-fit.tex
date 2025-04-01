@@ -222,9 +222,11 @@ the  Cauchy–Schwarz Inequality:
 where ${\bf u}$ is $\vec{x}$ and ${\bf v}$ is $[1, 1, 1, ..., 1]$, and
 $< , >$ is the inner (dot) product, while the actual dot($\cdot$) is a
 scalar multiply.   Hence we see that $<{\bf v}, {\bf v}> = n$, and the others
-match the above equation as well.
+match the above equation as well.  A situation can arise where every ${\bf x_i}$
+is identical with different (or equal) ${\bf y_i}$, the line that fits would
+be vertical (or undefined if all ${\bf y_i}$ are equal). 
 
-So if we get an equality, we simply report an error.
+So if we get a divide by zero possibility, we simply report an error.
 
 \vfill
 
