@@ -17,7 +17,7 @@ but the line didn't fit the least-squares model, so I modified the html/javascri
 
 See the [pdf](https://github.com/zettix/LeastSquares/blob/main/tex/line-fit.pdf) for the very short python code required to implement
 this algorithm, or look at `LeastSquaresLine.py`.   The file
-`least-plot.py` simply plots the example data to produce the above image.
+`least-plot.py` simply plots the example data to produce the top image.
 
 To create the pdf:
 ```
