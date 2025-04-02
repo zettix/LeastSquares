@@ -24,7 +24,11 @@ To create the pdf:
 pdflatex line-fit.tex
 ```
 
-# File listing
+## See also:
+
+[https://en.wikipedia.org/wiki/Simple_linear_regression](https://en.wikipedia.org/wiki/Simple_linear_regression)
+
+## File listing
 
 1. arial.ttf Used for python image text.  A TrueType font
 2. canvas-plot.gif Example image from html/javascript solver
@@ -37,4 +41,5 @@ pdflatex line-fit.tex
 9. README.md this file
 10. test1.txt input to the python plotter
 11. testLeastSquaresLine.py unit tests
-12. tex PDF paper directory
+12. testAnscombesQuartet.py unit tests
+13. tex PDF paper directory
